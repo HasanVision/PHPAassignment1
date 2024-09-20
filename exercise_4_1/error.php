@@ -14,6 +14,7 @@
     <main>
         <h2 class="top">Error</h2>
         <p><?php echo $error; ?></p>
+        <p><a href="index.php"> Return to product list </a></p>
     </main>
 
     <footer>

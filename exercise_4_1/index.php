@@ -1,5 +1,5 @@
 <?php
-require_once('database.php');
+require('database.php');
 
 // Get category ID
 if (!isset($category_id)) {
@@ -91,6 +91,13 @@ $statement3->closeCursor();
                            value="<?php echo $product['categoryID']; ?>">
                     <input type="submit" value="Delete">
                 </form></td>
+                <!-- Add Edit button -->
+                <td>
+        <form action="edit_product_form.php" method="get">
+            <input type="hidden" name="product_id" value="<?php echo $product['productID']; ?>">
+            <input type="submit" value="Edit">
+        </form>
+    </td>
             </tr>
             <?php endforeach; ?>
         </table>
