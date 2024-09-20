@@ -1,22 +1,22 @@
 <?php
-
+// Initialize variables
 $product_description = '';
 $list_price = '';
 $discount_percent = '';
 $error_message = '';
 $discount_price_f = $discount_f = $discount_percent_f = $list_price_f = $sales_tax_f = $total_price_f = '';
 
-
+// Sales tax rate
 $sales_tax_rate = 8;
 
-
+// Check if form is submitted
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-   
+    // Get form input values
     $product_description = filter_input(INPUT_POST, 'product_description', FILTER_SANITIZE_STRING);
     $list_price = filter_input(INPUT_POST, 'list_price', FILTER_VALIDATE_FLOAT);
     $discount_percent = filter_input(INPUT_POST, 'discount_percent', FILTER_VALIDATE_FLOAT);
 
-  
+    // Validate the inputs
     if (empty($product_description)) {
         $error_message .= "<p>Product Description is a required field.</p>";
     }
@@ -27,19 +27,19 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $error_message .= "<p>Discount Percent must be a number between 0 and 100.</p>";
     }
 
-  
+    // If no errors, calculate the discount and sales tax
     if (empty($error_message)) {
-      
+        // Calculate the discount and discounted price
         $discount = $list_price * $discount_percent * .01;
         $discount_price = $list_price - $discount;
 
-
+        // Calculate sales tax (8%) based on the discounted price
         $sales_tax = $discount_price * ($sales_tax_rate / 100);
 
- 
+        // Calculate the total price after sales tax
         $total_price = $discount_price + $sales_tax;
 
-   
+        // Format the values for display
         $list_price_f = "$".number_format($list_price, 2);
         $discount_percent_f = $discount_percent."%";
         $discount_f = "$".number_format($discount, 2);
@@ -62,14 +62,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <main>
         <h1>Product Discount Calculator</h1>
 
-   
+        <!-- Display error messages, if any -->
         <?php if (!empty($error_message)): ?>
             <div style="color: red;">
                 <?php echo $error_message; ?>
             </div>
         <?php endif; ?>
 
-     
+        <!-- Form to enter product details -->
         <form action="" method="post">
             <div id="data">
                 <label>Product Description:</label>
@@ -87,7 +87,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             </div>
         </form>
 
-
+        <!-- Display the results only if no errors -->
         <?php if (empty($error_message) && $_SERVER["REQUEST_METHOD"] == "POST"): ?>
             <h2>Discount Information</h2>
             <label>Product Description:</label>
