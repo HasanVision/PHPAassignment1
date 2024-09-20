@@ -37,7 +37,7 @@ if ($product_id != NULL && $product_id != FALSE) {
     <header><h1>Edit Product</h1></header>
     
     <main>
-        <form action="edit_product.php" method="post" id="edit_product_form">
+        <form action="edit_product.php" method="post" id="add_product_form">
             <input type="hidden" name="product_id" value="<?php echo $product['productID']; ?>">
 
             <!-- Display category as a dropdown list -->
